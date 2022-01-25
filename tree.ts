@@ -15,6 +15,10 @@ interface TreeNode {
   toString(): string,
 }
 
+/**
+ * Class for holding simple operands
+ * This is just a wrapper over the initial value
+ */
 class Operand implements TreeNode {
   value: number;
 
@@ -35,6 +39,10 @@ class Operand implements TreeNode {
   }
 }
 
+/**
+ * Common logic for all binary operators
+ * Responsible for storage and common typechecks
+ */
 abstract class BinaryNode implements TreeNode {
   left: TreeNode;
 
@@ -108,6 +116,14 @@ class Divide extends BinaryNode {
   }
 }
 
+/**
+ * From a given string get the Operation enum value or throw an error if an invalid string
+ * is provided
+ *
+ * @param originalStr string representing an operation or '' if the resulting node
+ * should be a simple operand
+ * @returns the associated enum
+ */
 function operationFromStr(originalStr: string): Operation {
   /*
    * more generic solutions exist, but this is by far the simplest
@@ -123,7 +139,7 @@ function operationFromStr(originalStr: string): Operation {
 }
 
 /**
- * We keep the initial node function as a sort-of factory for backwards compatibility
+ * We keep the initial Node function as a sort-of factory for backwards compatibility
  */
 const Node = (operator: string, value: number, left: TreeNode, right: TreeNode) => {
   const operationType = operationFromStr(operator);
