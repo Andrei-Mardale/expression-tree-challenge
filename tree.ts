@@ -91,6 +91,8 @@ class Multiply extends BinaryNode {
 class Divide extends BinaryNode {
   constructor(left: TreeNode, right: TreeNode) {
     if (right instanceof Operand && right.result() === 0) {
+      // we do this check only if the right side value is an operand
+      // for operator types, we let the potential error happen as a "runtime" error
       throw new TypeError('Explicit division by zero is not allowed');
     }
 
