@@ -19,6 +19,10 @@ class Operand implements TreeNode {
   value: number;
 
   constructor(value: number) {
+    if (value == null || Number.isNaN(value)) {
+      throw new TypeError('value is not a number');
+    }
+
     this.value = value;
   }
 

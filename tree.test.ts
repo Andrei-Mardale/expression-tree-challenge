@@ -29,3 +29,11 @@ test('binary operators fail if one operand is missing', () => {
 
   expect(functionCall).toThrow(TypeError);
 });
+
+test('unary operators fail if operand is not provided', () => {
+  const functionCall = () => {
+    Node('', null, null, null);
+  };
+
+  expect(functionCall).toThrow(TypeError);
+});
