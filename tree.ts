@@ -37,6 +37,10 @@ abstract class BinaryNode implements TreeNode {
   right: TreeNode;
 
   constructor(left: TreeNode, right: TreeNode) {
+    if (left == null || right == null) {
+      throw new TypeError('Both left and right operands are required');
+    }
+
     this.left = left;
     this.right = right;
   }

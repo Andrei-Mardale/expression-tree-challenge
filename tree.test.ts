@@ -21,3 +21,11 @@ test('original test', () => {
   expect(tree.toString()).toBe('((7 + ((3 - 2) x 5)) ÷ 6)');
   expect(tree.result()).toBe(2);
 });
+
+test('binary operators fail if one operand is missing', () => {
+  const functionCall = () => {
+    Node('+', null, 1, null);
+  };
+
+  expect(functionCall).toThrow(TypeError);
+});
