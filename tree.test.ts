@@ -51,3 +51,17 @@ test('explicit division by zero is not allowed', () => {
 
   expect(functionCall).toThrow(TypeError);
 });
+
+test('unary operators are not serialized with parantheses', () => {
+  const node = Node('', 2, null, null);
+
+  expect(node.toString()).toBe('2');
+});
+
+test('invalid operators are not supported', () => {
+  const functionCall = () => {
+    Node('/', null, null, null);
+  };
+
+  expect(functionCall).toThrow(TypeError);
+});
