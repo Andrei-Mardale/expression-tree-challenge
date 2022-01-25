@@ -89,6 +89,14 @@ class Multiply extends BinaryNode {
 }
 
 class Divide extends BinaryNode {
+  constructor(left: TreeNode, right: TreeNode) {
+    if (right instanceof Operand && right.result() === 0) {
+      throw new TypeError('Explicit division by zero is not allowed');
+    }
+
+    super(left, right);
+  }
+
   result() {
     return this.left.result() / this.right.result();
   }

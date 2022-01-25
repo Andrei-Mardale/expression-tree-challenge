@@ -37,3 +37,17 @@ test('unary operators fail if operand is not provided', () => {
 
   expect(functionCall).toThrow(TypeError);
 });
+
+test('explicit division by zero is not allowed', () => {
+  // this checks that the user is not allowed to provide 0 as right-side operator for division
+  const functionCall = () => {
+    Node(
+      '÷',
+      null,
+      Node('', 123, null, null),
+      Node('', 0, null, null)
+    );
+  };
+
+  expect(functionCall).toThrow(TypeError);
+});
