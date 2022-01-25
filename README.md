@@ -1,4 +1,4 @@
-## Tree Expression Challenge
+## Expression Tree Challenge
 
 ### How to run
 
