@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const assert = require('assert');
 
 enum Operation {
@@ -57,10 +58,12 @@ abstract class BinaryNode implements TreeNode {
     this.right = right;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   result(): number {
     throw new TypeError('not implemented');
   }
 
+  // eslint-disable-next-line class-methods-use-this
   toString(): string {
     throw new TypeError('not implemented');
   }
@@ -100,7 +103,7 @@ class Divide extends BinaryNode {
   constructor(left: TreeNode, right: TreeNode) {
     if (right instanceof Operand && right.result() === 0) {
       // we do this check only if the right side value is an operand
-      // for operator types, we let the potential error happen as a "runtime" error
+      // for operator types, we let the potential error happen as a 'runtime' error
       throw new TypeError('Explicit division by zero is not allowed');
     }
 
@@ -120,7 +123,7 @@ class Divide extends BinaryNode {
  * From a given string get the Operation enum value or throw an error if an invalid string
  * is provided
  *
- * @param originalStr string representing an operation or '' if the resulting node
+ * @param originalStr string representing an operation or '' if the resulting createNode
  * should be a simple operand
  * @returns the associated enum
  */
@@ -139,9 +142,9 @@ function operationFromStr(originalStr: string): Operation {
 }
 
 /**
- * We keep the initial Node function as a sort-of factory for backwards compatibility
+ * We keep the initial createNode function as a sort-of factory for backwards compatibility
  */
-const Node = (operator: string, value: number, left: TreeNode, right: TreeNode) => {
+const createNode = (operator: string, value: number, left: TreeNode, right: TreeNode) => {
   const operationType = operationFromStr(operator);
 
   // yes, this is an anti-pattern, but we really want that backwards compatiblity
@@ -155,24 +158,24 @@ const Node = (operator: string, value: number, left: TreeNode, right: TreeNode) 
   }
 };
 
-module.exports = Node;
-
-const tree = Node(
-  "÷",
+const tree = createNode(
+  '÷',
   null,
-  Node(
-    "+",
+  createNode(
+    '+',
     null,
-    Node("", 7, null, null),
-    Node(
-      "x",
+    createNode('', 7, null, null),
+    createNode(
+      'x',
       null,
-      Node("-", null, Node("", 3, null, null), Node("", 2, null, null)),
-      Node("", 5, null, null)
-    )
+      createNode('-', null, createNode('', 3, null, null), createNode('', 2, null, null)),
+      createNode('', 5, null, null),
+    ),
   ),
-  Node("", 6, null, null)
+  createNode('', 6, null, null),
 );
 
 assert.strictEqual('((7 + ((3 - 2) x 5)) ÷ 6)', tree.toString());
 assert.strictEqual(2, tree.result());
+
+export default createNode;
